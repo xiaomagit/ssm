@@ -12,6 +12,6 @@ public interface OrderService {
      * 查询所有订单信息
      * @return
      */
-    public List<Orders> findAll() throws Exception;
+    public List<Orders> findAll(int page,int size) throws Exception;
 
 }

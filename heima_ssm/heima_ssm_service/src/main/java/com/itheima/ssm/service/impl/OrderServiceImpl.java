@@ -1,5 +1,6 @@
 package com.itheima.ssm.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.itheima.ssm.dao.OrdersDao;
 import com.itheima.ssm.domain.Orders;
 import com.itheima.ssm.service.OrderService;
@@ -19,8 +20,19 @@ public class OrderServiceImpl implements OrderService {
      * @return
      * @throws Exception
      */
-    @Override
+    /*@Override
     public List<Orders> findAll() throws Exception {
+        return ordersDao.findAll();
+    }*/
+
+    /**
+     * 查询所有的订单信息,并且分页
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Orders> findAll(int page,int size) throws Exception {
+        PageHelper.startPage(page, size);
         return ordersDao.findAll();
     }
 }
