@@ -7,10 +7,17 @@ import java.util.List;
 public interface ProductService {
 
     /**
-     * 查询所有商品
+     * 查询所有产品
      * @return
      * @throws Exception
      */
     public List<Product> findAll() throws Exception;
+
+    /**
+     * 添加产品
+     * @param product
+     * @throws Exception
+     */
+    public void save(Product product) throws Exception;
 
 }
