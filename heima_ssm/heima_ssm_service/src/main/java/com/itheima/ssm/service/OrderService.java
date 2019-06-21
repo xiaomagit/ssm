@@ -14,4 +14,13 @@ public interface OrderService {
      */
     public List<Orders> findAll(int page,int size) throws Exception;
 
+
+    /**
+     * 订单详情查询
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Orders findById(String id) throws Exception;
+
 }

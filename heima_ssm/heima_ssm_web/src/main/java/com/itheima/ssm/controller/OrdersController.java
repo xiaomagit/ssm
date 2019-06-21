@@ -47,5 +47,14 @@ public class OrdersController {
         return modelAndView;
     }
 
+    @RequestMapping("/findById.do")
+    public ModelAndView findById(@RequestParam(name = "id",required = true)String id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Orders orders = orderService.findById(id);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("orders-show");
+        return modelAndView;
+    }
+
 }
 

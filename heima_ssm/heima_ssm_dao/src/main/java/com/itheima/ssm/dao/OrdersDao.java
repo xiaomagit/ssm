@@ -5,12 +5,27 @@ import com.itheima.ssm.domain.Orders;
 import com.itheima.ssm.domain.Product;
 import org.apache.ibatis.annotations.*;
 
-import java.util.Calendar;
 import java.util.List;
 
 public interface OrdersDao {
 
     @Select("select * from orders")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "orderNum", property = "orderNum"),
+            @Result(column = "orderTime", property = "orderTime"),
+            @Result(column = "orderStatus", property = "orderStatus"),
+            @Result(column = "peopleCount", property = "peopleCount"),
+            @Result(column = "payType", property = "payType"),
+            @Result(column = "orderDesc", property = "orderDesc"),
+            @Result(column = "productId",
+                    property = "product",
+                    javaType = Product.class,
+                    one = @One(select = "com.itheima.ssm.dao.ProductDao.findById")),
+    })
+    public List<Orders> findAll() throws Exception;
+
+    @Select("select * from orders where id=#{id}")
     @Results({
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "orderNum", property = "orderNum"),
@@ -33,5 +48,6 @@ public interface OrdersDao {
                     many = @Many(select = "com.itheima.ssm.dao.TravellerDao.findByOrderId")
             )
     })
-    public List<Orders> findAll() throws Exception;
+    public Orders findById(String id) throws Exception;
+
 }
