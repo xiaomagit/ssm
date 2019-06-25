@@ -47,6 +47,12 @@ public class OrdersController {
         return modelAndView;
     }
 
+    /**
+     * 根据id查询订单信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/findById.do")
     public ModelAndView findById(@RequestParam(name = "id",required = true)String id) throws Exception {
         ModelAndView modelAndView = new ModelAndView();

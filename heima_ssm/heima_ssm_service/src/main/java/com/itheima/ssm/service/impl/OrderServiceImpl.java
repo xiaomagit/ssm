@@ -38,6 +38,12 @@ public class OrderServiceImpl implements OrderService {
         return ordersDao.findAll();
     }
 
+    /**
+     * 根据id查询订单信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
     @Override
     public Orders findById(String id) throws Exception{
         return ordersDao.findById(id);

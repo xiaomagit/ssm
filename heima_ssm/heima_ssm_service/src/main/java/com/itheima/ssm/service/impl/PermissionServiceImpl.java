@@ -17,6 +17,18 @@ public class PermissionServiceImpl implements PermissionService {
     private PermissionDao permissionDao;
 
     /**
+     * 根据id查询资源权限信息
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Permission findById(String id) throws Exception {
+        return permissionDao.findById(id);
+    }
+
+    /**
      * 添加资源权限信息
      *
      * @param permission

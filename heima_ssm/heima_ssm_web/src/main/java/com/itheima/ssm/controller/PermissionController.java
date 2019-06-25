@@ -17,7 +17,24 @@ public class PermissionController {
     private PermissionService permissionService;
 
     /**
-     * 添加资源权限信息
+     * 根据id查询资源权限详细信息
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/findById.do")
+    public ModelAndView findById(String id) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Permission permission = permissionService.findById(id);
+        modelAndView.addObject("permission", permission);
+        modelAndView.setViewName("permission-show");
+        return modelAndView;
+    }
+
+    /**
+     * role
+     *
      * @param permission
      * @return
      * @throws Exception
@@ -30,12 +47,13 @@ public class PermissionController {
 
     /**
      * 查询所有资源权限信息
-     * @param modelAndView
+     *
      * @return
      * @throws Exception
      */
     @RequestMapping("/findAll.do")
-    public ModelAndView findAll(ModelAndView modelAndView) throws Exception {
+    public ModelAndView findAll() throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
         List<Permission> permissionList = permissionService.findAll();
         modelAndView.addObject("permissionList", permissionList);
         modelAndView.setViewName("permission-list");

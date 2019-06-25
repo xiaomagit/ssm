@@ -27,17 +27,44 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
+     * 为用户添加角色
+     *
+     * @param userId
+     * @param roleIds
+     * @throws Exception
+     */
+    @Override
+    public void addRoleToUser(String userId, String[] roleIds) throws Exception {
+        for (String roleId : roleIds) {
+            userDao.addRoleToUser(userId, roleId);
+        }
+    }
+
+    /**
+     * 查询用户不具有的角色
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Role> findUserByIdAndAllRole(String userId) throws Exception {
+        return userDao.findUserByIdAndAllRole(userId);
+    }
+
+    /**
      * 通过id查询用户详细信息
+     *
      * @param id
      * @return
      */
     @Override
-    public UserInfo findById(String id) {
+    public UserInfo findById(String id) throws Exception {
         return userDao.findById(id);
     }
 
     /**
      * 登录，通过username查询用户
+     *
      * @param username
      * @return
      * @throws UsernameNotFoundException
@@ -55,17 +82,9 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    private List<SimpleGrantedAuthority> getAuthorities(List<Role> roles) {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
-        }
-        //authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return authorities;
-    }
-
     /**
      * 查询所有用户信息
+     *
      * @return
      * @throws Exception
      */
@@ -76,6 +95,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 添加用户
+     *
      * @param userInfo
      * @throws Exception
      */
@@ -84,4 +104,20 @@ public class UserServiceImpl implements UserService {
         userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
         userDao.save(userInfo);
     }
+
+    /**
+     * 获得角色名称
+     *
+     * @param roles
+     * @return
+     */
+    private List<SimpleGrantedAuthority> getAuthorities(List<Role> roles) {
+        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+        }
+        //authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
+    }
+
 }

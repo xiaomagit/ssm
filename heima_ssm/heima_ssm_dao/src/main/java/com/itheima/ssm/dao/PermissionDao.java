@@ -1,15 +1,35 @@
 package com.itheima.ssm.dao;
 
 import com.itheima.ssm.domain.Permission;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 public interface PermissionDao {
 
     /**
+     * 根据id查询资源权限信息
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @Select("select * from permission where id = #{id}")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "permissionName", property = "permissionName"),
+            @Result(column = "url", property = "url"),
+            @Result(column = "id",
+                    property = "roles",
+                    javaType = List.class,
+                    many = @Many(select = "com.itheima.ssm.dao.RoleDao.findRoleByPermissionId")
+            )
+    })
+    public Permission findById(String id) throws Exception;
+
+    /**
      * 添加资源权限信息
+     *
      * @param permission
      * @throws Exception
      */
@@ -18,6 +38,7 @@ public interface PermissionDao {
 
     /**
      * 查询所有资源权限信息
+     *
      * @return
      * @throws Exception
      */
@@ -26,6 +47,7 @@ public interface PermissionDao {
 
     /**
      * 根据id查询权限资源信息
+     *
      * @param id
      * @return
      */

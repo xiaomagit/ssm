@@ -7,6 +7,14 @@ import java.util.List;
 public interface PermissionService {
 
     /**
+     * 根据id查询资源权限信息
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Permission findById(String id) throws Exception;
+
+    /**
      * 添加资源权限信息
      * @param permission
      * @throws Exception
